@@ -80,7 +80,41 @@ function version() {
 // Function that redirects the user to my GitHub profile
 function github() {
     output.insertAdjacentHTML('beforeend', `<p><span class="blue">~/tmp/users</span> <span class="green">admin </span><span class="red">> </span>${input.value}</p>`);
-    output.insertAdjacentHTML('beforeend', `<p>Requesting GitHub profile: <span class="yellow">Knetters</span></p>`);
+
+    fetch('https://whois.fdnd.nl/api/v1/members?first=1000')
+    .then(response => response.json())
+    .then(data => {
+        const members = data.members;
+        const member = members.find(member => member.id === 'clden4f9j3pd30avw1wpxlkg5');
+        output.insertAdjacentHTML('beforeend', `<p>Requesting GitHub profile: <span class="yellow">${member.gitHubHandle}</span></p>`);
+
+        output.insertAdjacentHTML('beforeend', `<p>Progress: <span id="progressBar">░░░░░░░░░░░░░░░░░░░░</span></p>`);
+        const progressBars = document.querySelectorAll("#progressBar");
+        const progressBar = progressBars[progressBars.length - 1];
+
+        let bar = "░░░░░░░░░░░░░░░░░░░░";
+
+        function fillBar() {
+            let i = 0;
+            let interval = setInterval(function() {
+                if (i === bar.length) {
+                    clearInterval(interval);
+                        window.open('https://github.com/' + `${member.gitHubHandle}`, '_blank');
+                    return;
+                }
+                bar = bar.substring(0, i) + "▓" + bar.substring(i + 1);
+                progressBar.innerHTML = bar;
+                i++;
+            }, 1000 / bar.length);
+        }
+
+        fillBar();
+    });  
+}
+
+// Function that gives the user info
+function info() {
+    output.insertAdjacentHTML('beforeend', `<p><span class="blue">~/tmp/users</span> <span class="green">admin </span><span class="red">> </span>${input.value}</p>`);
     
     output.insertAdjacentHTML('beforeend', `<p>Progress: <span id="progressBar">░░░░░░░░░░░░░░░░░░░░</span></p>`);
     const progressBars = document.querySelectorAll("#progressBar");
@@ -93,7 +127,19 @@ function github() {
         let interval = setInterval(function() {
             if (i === bar.length) {
                 clearInterval(interval);
-                window.open('https://github.com/knetters', '_blank');
+                fetch('https://whois.fdnd.nl/api/v1/members?first=1000')
+                    .then(response => response.json())
+                    .then(data => {
+                        const members = data.members;
+                        const member = members.find(member => member.id === 'clden4f9j3pd30avw1wpxlkg5');
+                        output.insertAdjacentHTML('beforeend', `
+                            <p><span class="yellow">=====></span> Information <span class="yellow">=====></span></p>
+                            <p><span class="info-label">Name:</span> <span class="info-description green">${member.name} ${member.surname}</span></p>
+                            <p><span class="info-label">Email:</span> <span class="info-description green">thomas@scheepers.com</span></p>
+                            <p><span class="info-label">Location:</span> <span class="info-description green">Alkmaar, Netherlands</span></p>
+                            <p><span class="info-label">Occupation:</span> <span class="info-description green">${member.bio.html}</span></p>
+                        `);
+                    });
                 return;
             }
             bar = bar.substring(0, i) + "▓" + bar.substring(i + 1);
@@ -102,20 +148,7 @@ function github() {
         }, 1000 / bar.length);
     }
 
-    fillBar();  
-}
-
-// Function that gives the user info
-function info() {
-    output.insertAdjacentHTML('beforeend', `<p><span class="blue">~/tmp/users</span> <span class="green">admin </span><span class="red">> </span>${input.value}</p>`);
-    
-    output.insertAdjacentHTML('beforeend', `
-    <p><span class="yellow">=====></span> Information <span class="yellow">=====></span></p>
-    <p><span class="info-label">Name:</span> <span class="info-description green">Thomas Scheepers</span></p>
-    <p><span class="info-label">Email:</span> <span class="info-description green">thomas@scheepers.com</span></p>
-    <p><span class="info-label">Location:</span> <span class="info-description green">Alkmaar, Netherlands</span></p>
-    <p><span class="info-label">Occupation:</span> <span class="info-description green">FDND student at the HvA, Mediamarkt Nerd.</span></p>
-    `);
+    fillBar();
 }
 
 // Function that gives the user info

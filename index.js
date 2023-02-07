@@ -1,12 +1,8 @@
 // Importeer express uit de node_modules map
-import express from "express"
+import express from "express";
 
 // Maak een nieuwe express app aan
 const app = express()
-
-// const res = await fetch('https://whois.fdnd.nl/api/v1/members?first=1');
-// const data = await res.json();
-// console.log(data);
 
 // Stel ejs in als template engine en geef de 'views' map door
 app.set('view engine', 'ejs')
