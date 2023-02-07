@@ -15,8 +15,9 @@
 body, html {
     margin: 0;
     padding: 0;
-    background: rgb(255,255,255);
-    background: radial-gradient(circle, rgba(255,255,255,0) 0%, rgba(55,55,60,1) 0%, rgba(34,37,60,1) 100%);
+    background: #7f7fd5; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     font-family: 'IBM Plex Mono', sans-serif;
     height: 100vh;
 }
@@ -65,7 +66,7 @@ body, html {
 
 /* Taskbar  */
 .task-bar {
-    background: rgba(26, 26, 26, 0.52);
+    background: rgba(236, 236, 236, 0.73);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5.4px);
     -webkit-backdrop-filter: blur(5.4px);
@@ -75,7 +76,7 @@ body, html {
 
 .task-bar p {
     font-size: .9rem;
-    color: var(--white);
+    color: #000;
 }
 
 .task-bar-labels {
@@ -101,6 +102,7 @@ body, html {
     background-color: #1f1e1e;
     width: 100%;
     position: absolute;
+    border-radius: 10px 10px 0 0;
 }
 
 .toolbar-row {
@@ -197,8 +199,8 @@ p {
 }
 
 .terminal-application-icon:focus {
-    background-color: #6c7076;
-    border: 3px solid var(--grey);
+    background-color: #89a2c8ca;
+    border: 2px solid #457ed3ea;
     border-radius: .4rem;
 }
 
