@@ -81,11 +81,10 @@ function version() {
 function github() {
     output.insertAdjacentHTML('beforeend', `<p><span class="blue">~/tmp/users</span> <span class="green">admin </span><span class="red">> </span>${input.value}</p>`);
 
-    fetch('https://whois.fdnd.nl/api/v1/members?first=1000')
+    fetch('https://whois.fdnd.nl/api/v1/member/mals')
     .then(response => response.json())
     .then(data => {
-        const members = data.members;
-        const member = members.find(member => member.id === 'clden4f9j3pd30avw1wpxlkg5');
+        const member = data.member;
         output.insertAdjacentHTML('beforeend', `<p>Requesting GitHub profile: <span class="yellow">${member.gitHubHandle}</span></p>`);
 
         output.insertAdjacentHTML('beforeend', `<p>Progress: <span id="progressBar">░░░░░░░░░░░░░░░░░░░░</span></p>`);
@@ -127,17 +126,16 @@ function info() {
         let interval = setInterval(function() {
             if (i === bar.length) {
                 clearInterval(interval);
-                fetch('https://whois.fdnd.nl/api/v1/members?first=1000')
+                fetch('https://whois.fdnd.nl/api/v1/member/mals')
                     .then(response => response.json())
                     .then(data => {
-                        const members = data.members;
-                        const member = members.find(member => member.id === 'clden4f9j3pd30avw1wpxlkg5');
+                        const member = data.member;
                         output.insertAdjacentHTML('beforeend', `
                             <p><span class="yellow">=====></span> Information <span class="yellow">=====></span></p>
                             <p><span class="info-label">Name:</span> <span class="info-description green">${member.name} ${member.surname}</span></p>
-                            <p><span class="info-label">Email:</span> <span class="info-description green">thomas@scheepers.com</span></p>
-                            <p><span class="info-label">Location:</span> <span class="info-description green">Alkmaar, Netherlands</span></p>
+                            <p><span class="info-label">Email:</span> <span class="info-description green">${member.nickname}</span></p>
                             <p><span class="info-label">Occupation:</span> <span class="info-description green">${member.bio.html}</span></p>
+                            <p><span class="info-label">GitHub Name:</span> <span class="info-description yellow">${member.gitHubHandle}</span></p>
                         `);
                     });
                 return;
