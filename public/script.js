@@ -296,6 +296,7 @@ input.addEventListener('keyup', (event) => {
 
 // Function for all the toolbar buttons and the OS
 const terminal = document.getElementById("terminal")
+const terminalToolbar = document.getElementById("terminal-toolbar")
 
 // Toolbar buttons
 const close_btn = document.getElementById("close")
@@ -330,4 +331,5 @@ max_btn.addEventListener("click", maxTerminal);
 
 function maxTerminal() {
     terminal.classList.toggle("terminal-width");
+    terminalToolbar.classList.toggle("terminal-toolbar-width");
 }
