@@ -56,7 +56,7 @@ function sudo() {
 function help() {
     output.insertAdjacentHTML('beforeend', `<p><span class="blue">~/tmp/users</span> <span class="green">admin </span><span class="red">> </span>${input.value}</p>`);
     output.insertAdjacentHTML('beforeend', `
-    <p><span class="yellow">=====></span> Commands <span class="yellow">=====></span></p>
+    <p><span class="yellow" aria-hidden="true">=====></span> Commands <span class="yellow" aria-hidden="true">=====></span></p>
     <p><span class="help-command">clear</span> <span class="help-description grey">Clears the terminal.</span></p>
     <p><span class="help-command">restart</span> <span class="help-description grey">Restarts the terminal.</span></p>
     <p><span class="help-command">stop</span> <span class="help-description grey">Stops the terminal.</span></p>
@@ -131,7 +131,7 @@ function info() {
                     .then(data => {
                         const member = data.member;
                         output.insertAdjacentHTML('beforeend', `
-                            <p><span class="yellow">=====></span> Information <span class="yellow">=====></span></p>
+                            <p><span class="yellow" aria-hidden="true">=====></span> Information <span class="yellow" aria-hidden="true">=====></span></p>
                             <p><span class="info-label">Name:</span> <span class="info-description green">${member.name} ${member.surname}</span></p>
                             <p><span class="info-label">Email:</span> <span class="info-description green">${member.nickname}</span></p>
                             <p><span class="info-label">Occupation:</span> <span class="info-description green">${member.bio.html}</span></p>
